@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+        <!-- breadcrumb-area start -->
+        <div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Login &amp; Register</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Login &amp; Register</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap section-ptb lagin-and-register-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                        <div class="login-register-wrapper">
+                            <!-- login-register-tab-list start -->
+                            {% for message in messages %}
+						<center><font color = "red">{{message}}</font></center>
+						{% endfor %}
+                            <div class="login-register-tab-list nav"> 
+                                <a data-toggle="tab" href="#lg1">
+                                    <h4> register </h4>
+                                </a>
+                                <a href="accounts/login"><i class="fa fa-lock"></i>
+                                    <h4> login </h4>
+                                </a>
+                            </div>
+                            <!-- login-register-tab-list end -->
+                            <div class="tab-content">
+                                <div id="lg1" class="tab-pane">
+                                    <div class="login-form-container">
+                                        <div class="login-register-form">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <div class="login-input-box">
+                                                <input name = "username" type="text" placeholder="Name"/>
+                                                <input name = "email" type="email" placeholder="Email Address"/>
+                                                <input name = "password" type="password" placeholder="Password"/>
+                                                <input name = "cpassword" type="password" placeholder="Confirm Password"/>
+                                                </div>
+                                                <div class="button-box">
+                                                    <button class="register-btn btn" type="submit"><span>Register</span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main-content-wrap end -->
+{% endblock %}
