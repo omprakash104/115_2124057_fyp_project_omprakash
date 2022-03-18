@@ -2,16 +2,17 @@
 {% load static %}
 {% block content %}
 
+
         <!-- breadcrumb-area start -->
         <div class="breadcrumb-area section-ptb">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="breadcrumb-title">Shop Left Sidebar</h2>
+                        <h2 class="breadcrumb-title">Shop Fullwidth</h2>
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Shop left sidebar</li>
+                            <li class="breadcrumb-item"><a href="{% url 'mainApp:home' %}">Home</a></li>
+                            <li class="breadcrumb-item active">Shop Fullwidth</li>
                         </ul>
                         <!-- breadcrumb-list end -->
                     </div>
@@ -25,149 +26,11 @@
         <div class="main-content-wrap shop-page section-ptb">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 order-lg-1 order-2">
-                        <!-- shop-sidebar-wrap start -->
-                        <div class="shop-sidebar-wrap">
-
-                            <!-- shop-sidebar start -->
-                            <div class="shop-sidebar mb-30">
-                                <h4 class="title">FILTER BY PRICE</h4>
-                                <!-- filter-price-content start -->
-                                <div class="filter-price-content">
-                                    <form action="#" method="post">
-                                        <div id="price-slider" class="price-slider"></div>
-                                        <div class="filter-price-wapper">
-                                            <div class="filter-price-cont">
-                                                <span>Price:</span>
-                                                <div class="input-type">
-                                                    <input type="text" id="min-price" readonly="" />
-                                                </div>
-                                                <span>—</span>
-                                                <div class="input-type">
-                                                    <input type="text" id="max-price" readonly="" />
-                                                </div>
-                                                <a class="add-to-cart-button" href="#">
-                                                    <span>FILTER</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- filter-price-content end -->
-                            </div>
-                            <!-- shop-sidebar end -->
-
-                            <!-- shop-sidebar start -->
-                            <div class="shop-sidebar mb-30">
-                                <h4 class="title">CATEGORIES</h4>
-                                <ul>
-                                    <li><a href="shop.html">brothers <span>(18)</span></a></li>
-                                    <li><a href="shop.html">hatil <span>(16)</span></a></li>
-                                    <li><a href="shop.html">Men <span>(6)</span></a></li>
-                                    <li><a href="shop.html">Women <span>(11)</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- shop-sidebar end -->
-
-
-                            <!-- shop-sidebar start -->
-                            <div class="sidbar-product shop-sidebar mb-30">
-                                <h4 class="title">best product</h4>
-                                <!-- sidbar-product-inner start -->
-                                <div class="sidbar-product-inner">
-                                    <div class="product-image">
-                                        <a href="product-details.html"><img src="assets/images/product/product-01.jpg" alt=""></a>
-                                    </div>
-                                    <div class="product-content text-left">
-                                        <h3><a href="product-details.html">Products Name 003</a></h3>
-                                        <div class="price-box">
-                                            <span class="old-price">11.00</span>
-                                            <span class="new-price">10.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- sidbar-product-inner end -->
-                                <!-- sidbar-product-inner start -->
-                                <div class="sidbar-product-inner">
-                                    <div class="product-image">
-                                        <a href="product-details.html"><img src="assets/images/product/product-10.jpg" alt=""></a>
-                                    </div>
-                                    <div class="product-content text-left">
-                                        <h3><a href="product-details.html">Products Name 011</a></h3>
-                                        <div class="price-box">
-                                            <span class="old-price">18.00</span>
-                                            <span class="new-price">14.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- sidbar-product-inner end -->
-                                <!-- sidbar-product-inner start -->
-                                <div class="sidbar-product-inner">
-                                    <div class="product-image">
-                                        <a href="product-details.html"><img src="assets/images/product/product-04.jpg" alt=""></a>
-                                    </div>
-                                    <div class="product-content text-left">
-                                        <h3><a href="product-details.html">Products Name 008</a></h3>
-                                        <div class="price-box">
-
-                                            <span class="old-price">19.00</span>
-                                            <span class="new-price">16.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- sidbar-product-inner end -->
-                            </div>
-                            <!-- shop-sidebar end -->
-
-                            <!-- shop-sidebar start -->
-                            <div class="shop-sidebar mb-30">
-                                <h4 class="title">Color</h4>
-                                <ul>
-                                    <li><a href="shop.html">Red <span>(18)</span></a></li>
-                                    <li><a href="shop.html">Green <span>(16)</span></a></li>
-                                    <li><a href="shop.html">Blue <span>(6)</span></a></li>
-                                    <li><a href="shop.html">Yellow <span>(11)</span></a></li>
-                                    <li><a href="shop.html">White <span>(11)</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- shop-sidebar end -->
-
-                            <!-- shop-sidebar start -->
-                            <div class="shop-sidebar mb-30">
-                                <h4 class="title">SIZE</h4>
-                                <ul>
-                                    <li><a href="shop.html">S <span>(11)</span></a></li>
-                                    <li><a href="shop.html">M <span>(13)</span></a></li>
-                                    <li><a href="shop.html">L <span>(6)</span></a></li>
-                                    <li><a href="shop.html">XLL <span>(51)</span></a></li>
-                                    <li><a href="shop.html">XXL <span>(3)</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- shop-sidebar end -->
-
-                            <!-- shop-sidebar start -->
-                            <div class="shop-sidebar">
-                                <h4 class="title">Hot Tags</h4>
-                                <div class="sidebar-tag">
-                                    <a href="#">Red</a>
-                                    <a href="#">Blue</a>
-                                    <a href="#">Man</a>
-                                    <a href="#">White</a>
-                                    <a href="#">Yellow</a>
-                                    <a href="#">Digital</a>
-                                    <a href="#">Women</a>
-                                    <a href="#">Evergreen</a>
-                                </div>
-                            </div>
-                            <!-- shop-sidebar end -->
-                        </div>
-                        <!-- shop-sidebar-wrap end -->
-                    </div>
-                    <div class="col-lg-9 order-lg-2 order-1">
+                    <div class="col-lg-12">
                         <!-- shop-product-wrapper start -->
                         <div class="shop-product-wrapper">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-12">
                                     <!-- shop-top-bar start -->
                                     <div class="shop-top-bar">
                                         <!-- product-view-mode start -->
@@ -197,224 +60,62 @@
                                 </div>
                             </div>
 
-                            <!-- shop-products-wrap start -->
-                            <div class="shop-products-wrap">
+                             <!-- shop-products-wrap start -->
+                             <div class="shop-products-wrap">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="grid">
+                                        {% for ap in allcategories %}
                                         <div class="shop-product-wrap">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="col-lg-3 col-md-4 col-sm-6">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
+                                                        <ul>
                                                         <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-12.jpg" alt="Produce Images"></a>
+                                                            <a href="{% url 'mainApp:productdetail' ap.slug %}"><img src="{{ap.image.url}}" alt="Produce Images"></a>
                                                             <span class="label">30% Off</span>
                                                             <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                                                <a href="{% url 'mainApp:addtocart' ap.id %}" class="add-to-cart"><i class="ion-bag"></i></a>
                                                                 <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
                                                                 <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
                                                             </div>
                                                         </div>
                                                         <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
+                                                            <h3><a href="{% url 'mainApp:productdetail' ap.slug %}">{{ap.title}}</a></h3>
                                                             <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
+                                                                <span class="old-price">Rs. {{ap.marked_price}}</span>
+                                                                <span class="new-price">Rs. {{ap.selling_prince}}</span>
                                                             </div>
                                                         </div>
+                                                    </ul>
                                                     </div>
                                                     <!-- single-product-wrap end -->
                                                 </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-11.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-09.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-08.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-07.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-06.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-05.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-04.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-03.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-content">
-                                                            <h3><a href="product-details.html">Product Title</a></h3>
-                                                            <div class="price-box">
-                                                                <span class="old-price">$56</span>
-                                                                <span class="new-price">$45</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
+                             
+                                   
+                         
+                             
+                                 
+                                                
+                                      
+                                  
+                                               
                                             </div>
                                         </div>
+                                        {% endfor %}
                                     </div>
                                     <div class="tab-pane" id="list">
+                                        {% for ap in allcategories %}
                                         <div class="shop-product-list-wrap">
                                             <div class="row product-layout-list">
                                                 <div class="col-lg-4 col-md-5">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
                                                         <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-06.jpg" alt="Produce Images"></a>
+                                                            <a href="{% url 'mainApp:productdetail' ap.slug %}"><img src="{{ap.image.url}}" alt="Produce Images"></a>
                                                             <span class="label">30% Off</span>
                                                             <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                                                <a href="{% url 'mainApp:addtocart' ap.id %}" class="add-to-cart"><i class="ion-bag"></i></a>
                                                                 <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
                                                                 <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
                                                             </div>
@@ -424,131 +125,57 @@
                                                 </div>
                                                 <div class="col-lg-8 col-md-7">
                                                     <div class="product-content text-left">
-                                                        <h3><a href="product-details.html">Product Title</a></h3>
+                                                        <h3><a href="{% url 'mainApp:productdetail' ap.slug %}">{{ap.title}}</a></h3>
                                                         <div class="price-box">
-                                                            <span class="old-price">$56</span>
-                                                            <span class="new-price">$45</span>
+                                                            <span class="old-price">Rs. {{ap.marked_price}}</span>
+                                                            <span class="new-price">Rs. {{ap.selling_prince}}</span>
                                                         </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis pariatur ipsa sint consectetur velit maiores sit voluptates aut tempora totam, consequatur iste quod suscipit natus. Explicabo facere neque adipisci odio.</p>
+                                                        <p>{{ap.description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
 
 
 
-                                            <div class="row product-layout-list">
-                                                <div class="col-lg-4 col-md-5">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-07.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-7">
-                                                    <div class="product-content text-left">
-                                                        <h3><a href="product-details.html">Product Title</a></h3>
-                                                        <div class="price-box">
-                                                            <span class="old-price">$56</span>
-                                                            <span class="new-price">$45</span>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis pariatur ipsa sint consectetur velit maiores sit voluptates aut tempora totam, consequatur iste quod suscipit natus. Explicabo facere neque adipisci odio.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="row product-layout-list">
-                                                <div class="col-lg-4 col-md-5">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-08.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-7">
-                                                    <div class="product-content text-left">
-                                                        <h3><a href="product-details.html">Product Title</a></h3>
-                                                        <div class="price-box">
-                                                            <span class="old-price">$56</span>
-                                                            <span class="new-price">$45</span>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis pariatur ipsa sint consectetur velit maiores sit voluptates aut tempora totam, consequatur iste quod suscipit natus. Explicabo facere neque adipisci odio.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="row product-layout-list">
-                                                <div class="col-lg-4 col-md-5">
-                                                    <!-- single-product-wrap start -->
-                                                    <div class="single-product-wrap">
-                                                        <div class="product-image">
-                                                            <a href="product-details.html"><img src="assets/images/product/product-09.jpg" alt="Produce Images"></a>
-                                                            <span class="label">30% Off</span>
-                                                            <div class="product-action">
-                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single-product-wrap end -->
-                                                </div>
-                                                <div class="col-lg-8 col-md-7">
-                                                    <div class="product-content text-left">
-                                                        <h3><a href="product-details.html">Product Title</a></h3>
-                                                        <div class="price-box">
-                                                            <span class="old-price">$56</span>
-                                                            <span class="new-price">$45</span>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis pariatur ipsa sint consectetur velit maiores sit voluptates aut tempora totam, consequatur iste quod suscipit natus. Explicabo facere neque adipisci odio.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                          
 
                                         </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
                             <!-- shop-products-wrap end -->
 
                             <!-- paginatoin-area start -->
-                            <div class="paginatoin-area">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <ul class="pagination-box">
-                                            <li><a class="Previous" href="#"><i class="ion-chevron-left"></i></a>
-                                            </li>
-                                            <li class="active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li>
-                                                <a class="Next" href="#"><i class="ion-chevron-right"></i> </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- <ul class="pagination">
+                                {% for page in page_obj %}
+                                <li><a href="?page=1"></a></li>
+                                {% endfor %}
+                                
+                            </ul>
+                            <ul class="pagination">
+                                {% for page in page_obj %}
+                                <li><a href="?page=1"></a></li>
+                                {% endfor %}
+                                
+                            </ul>
+						<div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                {% endif %}
+                        
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                        
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div> -->
                             <!-- paginatoin-area end -->
                         </div>
                         <!-- shop-product-wrapper end -->
@@ -557,6 +184,6 @@
             </div>
         </div>
         <!-- main-content-wrap end -->
+
+
 {% endblock %}
-
-

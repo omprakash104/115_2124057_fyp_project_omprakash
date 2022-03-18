@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+
+
         <!-- breadcrumb-area start -->
         <div class="breadcrumb-area section-ptb">
             <div class="container">
@@ -10,7 +12,7 @@
                         <h2 class="breadcrumb-title">Checkout</h2>
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'mainApp:home' %}">Home</a></li>
                             <li class="breadcrumb-item active">Checkout</li>
                         </ul>
                         <!-- breadcrumb-list end -->
@@ -261,56 +263,53 @@
                                         <table>
                                             <thead>
                                                 <tr>
+                                                    <!-- <th class="product-name">SN</th> -->
                                                     <th class="product-name">Product</th>
                                                     <th class="product-total">Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for cp in cart.cartproduct_set.all %}
                                                 <tr class="cart_item">
+                                                    <!-- <td class="product-name">
+                                                        1 <strong class="product-quantity"> × 1</strong>
+                                                    </td> -->
                                                     <td class="product-name">
-                                                        Vestibulum suscipit <strong class="product-quantity"> × 1</strong>
+                                                        {{cp.product.title}} <strong class="product-quantity"> × {{cp.quantity}}</strong>
                                                     </td>
                                                     <td class="product-total">
-                                                        <span class="amount">£165.00</span>
+                                                        <span class="amount">Rs. {{cp.subtotal}}</span>
                                                     </td>
                                                 </tr>
-                                                <tr class="cart_item">
-                                                    <td class="product-name">
-                                                        Vestibulum magna <strong class="product-quantity"> × 1</strong>
-                                                    </td>
-                                                    <td class="product-total">
-                                                        <span class="amount">£50.00</span>
-                                                    </td>
-                                                </tr>
+                                                {% endfor %}
                                             </tbody>
                                             <tfoot>
-                                                <tr class="cart-subtotal">
-                                                    <th>Cart Subtotal</th>
-                                                    <td><span class="amount">£215.00</span></td>
+                                                
+                                                <tr class="order-total">
+                                                    <th><strong>Total Amount</strong> </th>
+                                                    <td><strong><span class="amount">Rs. {{cart.total}}</span></strong>
+                                                    </td>
                                                 </tr>
+                                                
                                                 <tr class="shipping">
-                                                    <th>Shipping</th>
+                                                    <th>Shipping Charge</th>
                                                     <td>
                                                         <ul>
                                                             <li>
-                                                                <input type="radio">
+                                                                
                                                                 <label>
-                                                                    Flat Rate: <span class="amount">£7.00</span>
+                                                                    Inside Valley: <span class="amount">Free</span>
                                                                 </label>
                                                             </li>
                                                             <li>
-                                                                <input type="radio">
-                                                                <label>Free Shipping:</label>
+                                                                
+                                                                <label>Outside valley: <span>Depends upon currier charge.</span></label>
                                                             </li>
-                                                            <li></li>
+                                                            
                                                         </ul>
                                                     </td>
                                                 </tr>
-                                                <tr class="order-total">
-                                                    <th>Order Total</th>
-                                                    <td><strong><span class="amount">£215.00</span></strong>
-                                                    </td>
-                                                </tr>
+                                                
                                             </tfoot>
                                         </table>
                                     </div>
@@ -318,6 +317,14 @@
 
                                     <!-- your-order-wrap end -->
                                     <div class="payment-method">
+                                        <!-- <div class="btn continue-btn">
+                                            <input type="submit" value="Update cart" >
+                                        </div> -->
+                                        <div class="coupon2">
+                                            
+                                            
+                                            <center><a href="{% url 'mainApp:mycart' %}" class="btn continue-btn">Update cart</a></center>
+                                        </div>
                                         <div class="payment-accordion">
                                             <!-- ACCORDION START -->
                                             <h5>Direct Bank Transfer</h5>
@@ -353,4 +360,8 @@
             </div>
         </div>
         <!-- main-content-wrap end -->
+
+
+
+
 {% endblock %}

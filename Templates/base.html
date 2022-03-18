@@ -62,13 +62,22 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8 col-md-9">
+                                            
                                             <div class="top-info-wrap text-right">
+                                               
                                                 <ul class="top-info">
                                                     <li>Sun - Fri : 9am to 5pm </li>
                                                     <li><a href="#">+9887454455</a></li>
                                                     <li><a href="#">Carshop@gmail.com</a></li>
+                                                    {% if user.is_authenticated %}
+                                                    <li><a href="#"> {{user.username}}</a></li>
+                                                    {% else %}
+                                                    <li><a href="accounts/login">Login &amp; Register</a></li>   
+                                                    {% endif %}
+                                                    <li><a href="/accounts/logout">Logout</a></li>
                                                 </ul>
                                             </div>
+                                           
                                         </div>
                                     </div>
 
@@ -85,10 +94,11 @@
                         <div class="row align-items-center">
                             <div class="col-lg-2 col-md-4 col-5">
                                 <div class="logo-area">
-                                    <a href="index.html"><img src="#" alt="Logo"></a>
+                                    <a href="{% url 'mainApp:shop' %}"><img src="{% static 'slider/logo.jpg' %}" alt="Logo"></a>
                                 </div>
                             </div>
                             <div class="col-lg-8 d-none d-lg-block">
+                                
                                 <div class="main-menu-area text-center">
                                     <!--  Start Mainmenu Nav-->
                                     <nav class="main-navigation">
@@ -98,47 +108,41 @@
                                                     <li><a href="index.html">Home Page One</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li><a href="shop.html">Pages</a>
+                                            <!-- <li><a href="shop.html">Pages</a>
                                                 <ul class="mega-menu">
                                                     <li><a href="#">Column One</a>
                                                         <ul>
-                                                            <!-- <li><a href="compare.html">Compare Page</a></li> -->
-                                                            <li><a href="accounts/login">Login &amp; Register</a></li>
-                                                            <li><a href="my-account.html">My Account Page</a></li>
-                                                        </ul>
+                                                            <li><a href="compare.html">Compare Page</a></li> -->
+                                                            
+                                                        <!-- </ul>
                                                     </li>
-                                                    <!-- <li><a href="blog.html">Column two</a>
+                                                    <li><a href="">Column two</a>
                                                         <ul>
-                                                            <li><a href="product-details.html">Product Details 1</a></li>
-                                                            <li><a href="product-details-2.html">Product Details 2</a></li>
+                                                            <li><a href="{% url 'mainApp:productdetail' ap.slug %">Product Details</a></li>
+                                                         
                                                             <li><a href="checkout.html">Checkout Page</a></li>
                                                         </ul>
                                                     </li>
                                                     <li><a href="#">Column Three</a>
                                                         <ul>
                                                             <li><a href="error404.html">Error 404</a></li>
-                                                            <li><a href="cart.html">Cart Page</a></li>
+                                                            <li><a href="{% url 'mainApp:mycart' %}">Cart Page</a></li>
                                                             <li><a href="wishlist.html">Wish List Page</a></li>
                                                         </ul>
                                                     </li> -->
-                                                </ul>
-                                            </li>
-                                            <li><a href="shop.html">shop</a>
+                                                <!-- </ul>
+                                            </li> --> 
+                                            <li><a href="{% url 'mainApp:shop' %}">shop</a>
                                                 <!-- <ul class="sub-menu">
                                                     <li><a href="shop.html">Shop Left Sidebar</a></li>
                                                     <li><a href="shop-right.html">Shop Right Sidebar</a></li>
                                                     <li><a href="shop-fullwidth.html">Shop Full Width</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li><a href="blog.html">Blog</a>
-                                                <!-- <ul class="sub-menu">
-                                                    <li><a href="blog.html">Blog Left Sidebar</a></li>
-                                                    <li><a href="blog-right.html">Blog Right Sidebar</a></li>
-                                                    <li><a href="blog-details.html">Blog Details Page</a></li>
-                                                </ul> -->
+                                            <li><a href="{% url 'mainApp:blog' %}">Blog</a>
                                             </li>
-                                            <li><a href="about-us.html">About</a></li>
-                                            <li><a href="contact-us.html">Contact</a></li>
+                                            <li><a href="{% url 'mainApp:about' %}">About</a></li>
+                                            <li><a href="{% url 'mainApp:contact' %}">Contact</a></li>
                                         </ul>
                                     </nav>
 
@@ -148,7 +152,12 @@
                             <div class="col-lg-2 col-md-8 col-7">
                                 <div class="right-blok-box d-flex">
                                     <div class="search-wrap">
-                                        <a href="#" class="trigger-search"><i class="ion-ios-search-strong"></i></a>
+                                        <form action="{% url 'mainApp:search' %}" method = "GET">
+                                            <div class="search_box pull-right">
+                                                <input type="text" name = "query" placeholder="Search"/>
+                                            </div>
+                                        </form>
+                                        <!-- <a href="{% url 'mainApp:search' %}" class="trigger-search"><i class="ion-ios-search-strong"></i></a> -->
                                     </div>
 
                                     <div class="user-wrap">
@@ -192,8 +201,8 @@
                                             </li>
                                             <li class="mini-cart-btns">
                                                 <div class="cart-btns">
-                                                    <a href="cart.html">View cart</a>
-                                                    <a href="checkout.html">Checkout</a>
+                                                    <a href="{% url 'mainApp:mycart' %}">View cart</a>
+                                                    <a href="{% url 'mainApp:checkout' %}">Checkout</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -249,8 +258,8 @@
                                     <ul class="mobile-menu">
                                         <li class="menu-item-has-children"><a href="#">Home</a>
                                             <ul class="dropdown">
-                                                <li><a href="index.html">Home version 01</a></li>
-                                                <li><a href="index-2.html">Home version 02</a></li>
+                                                <li><a href="{% url 'mainApp:home' %}">Home version 01</a></li>
+                                                
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="#">pages</a>
@@ -259,12 +268,12 @@
                                                     <ul class="dropdown">
                                                         <li><a href="compare.html">Compare Page</a></li>
                                                         <li><a href="accounts/login">Login &amp; Register</a></li>
-                                                        <li><a href="my-account.html">My Account Page</a></li>
+                                                        <li><a href="/accounts/logout">Logout</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="mega-title has-children"><a href="#">Column two</a>
                                                     <ul class="dropdown">
-                                                        <li><a href="product-details.html">Product Details 1</a></li>
+                                                        <li><a href="{% url 'mainApp:productdetail' ap.slug %">Product Details</a></li>
                                                         <li><a href="product-details-2.html">Product Details 2</a></li>
                                                         <li><a href="checkout.html">Checkout Page</a></li>
                                                     </ul>
@@ -278,22 +287,22 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="menu-item-has-children "><a href="#">shop</a>
-                                            <ul class="dropdown">
+                                        <li class="menu-item-has-children "><a href="{% url 'mainApp:shop' %}">shop</a>
+                                            <!-- <ul class="dropdown">
                                                 <li><a href="shop.html">Shop Left Sidebar</a></li>
                                                 <li><a href="shop-right.html">Shop Right Sidebar</a></li>
                                                 <li><a href="shop-fullwidth.html">Shop Full Width</a></li>
-                                            </ul>
+                                            </ul> -->
                                         </li>
-                                        <li class="menu-item-has-children "><a href="#">Blog</a>
-                                            <ul class="dropdown">
+                                        <li class="menu-item-has-children "><a href="{% url 'mainApp:blog' %}">Blog</a>
+                                            <!-- <ul class="dropdown">
                                                 <li><a href="blog.html">Blog Left Sidebar</a></li>
                                                 <li><a href="blog-right.html">Blog Right Sidebar</a></li>
                                                 <li><a href="blog-details.html">Blog Details Page</a></li>
-                                            </ul>
+                                            </ul> -->
                                         </li>
-                                        <li><a href="about-us.html">About</a></li>
-                                        <li><a href="contact-us.html">Contact</a></li>
+                                        <li><a href="{% url 'mainApp:about' %}">About</a></li>
+                                        <li><a href="{% url 'mainApp:contact' %}">Contact</a></li>
                                     </ul>
                                 </nav>
                                 <!-- mobile menu navigation end -->
@@ -343,7 +352,7 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="widget-footer mt-20">
                                     <div class="footer-logo">
-                                        <a href="index.html"><img src="assets/images/logo/logo.png" alt=""></a>
+                                        <a href="{% url 'mainApp:home' %}"><img src="{% static 'slider/logo.jpg' %}" alt=""></a>
                                     </div>
                                     <p>long established fact that a reader will be distracted by the readable content by the readable content established fact that</p>
                                     <div class="newsletter-footer">
@@ -358,10 +367,10 @@
                                 <div class="widget-footer mt-30">
                                     <h6 class="title-widget">QUICK LINK</h6>
                                     <ul class="footer-list">
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Quick Contact</a></li>
-                                        <li><a href="#">Blog Pages</a></li>
+                                        <li><a href="{% url 'mainApp:home' %}">Home</a></li>
+                                        <li><a href="{% url 'mainApp:about' %}">About Us</a></li>
+                                        <li><a href="{% url 'mainApp:contact' %}">Quick Contact</a></li>
+                                        <li><a href="{% url 'mainApp:blog' %}">Blog Pages</a></li>
                                         <li><a href="#">Concord History</a></li>
                                         <li><a href="#">Client Feed</a></li>
                                     </ul>
@@ -377,7 +386,7 @@
                                         </li>
                                         <li>
                                             <label>Email</label>
-                                            <a href="#">Cardetection11@gmail.com</a>
+                                            <a href="#">Yadavom104@gmail.com</a>
                                         </li>
                                         <li>
                                             <label>Address</label>
@@ -414,7 +423,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="copy-right-text text-center">
-                                    <p>Copyright &copy; <a href="#">Car Detection</a> 2019. All Right Reserved</p>
+                                    <p>Copyright &copy; <a href="#">Om prakash yadav</a> 2022. All Right Reserved</p>
                                 </div>
                             </div>
                         </div>

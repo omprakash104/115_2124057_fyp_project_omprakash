@@ -7,9 +7,12 @@
                 <div class="row">
                     <div class="col-12">
                         <h2 class="breadcrumb-title">Cart</h2>
+                        {% for message in messages %}
+						<center><font color = "red">{{message}}</font></center>
+						{% endfor %}
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'mainApp:home' %}">Home</a></li>
                             <li class="breadcrumb-item active">Cart</li>
                         </ul>
                         <!-- breadcrumb-list end -->
@@ -30,7 +33,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="plantmore-product-thumbnail">Images</th>
+                                            <th class="plantmore-product-thumbnail">S.N.</th>
                                             <th class="cart-product-name">Product</th>
                                             <th class="plantmore-product-price">Unit Price</th>
                                             <th class="plantmore-product-quantity">Quantity</th>
@@ -39,36 +42,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        {% for cp in cart.cartproduct_set.all %}
+                                        <!-- <tr>
                                             <td class="plantmore-product-thumbnail"><a href="#"><img src="assets/images/other/01.jpg" alt=""></a></td>
                                             <td class="plantmore-product-name"><a href="#">Compete Track Tote</a></td>
                                             <td class="plantmore-product-price"><span class="amount">$70.00</span></td>
                                             <td class="plantmore-product-quantity">
                                                 <input value="1" type="number">
                                             </td>
-                                            <td class="product-subtotal"><span class="amount">$70.00</span></td>
+                                            <td class="product-subtotal"><span class="amount">{{forloop.counter}}</span></td>
                                             <td class="plantmore-product-remove"><a href="#"><i class="ion-close"></i></a></td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
-                                            <td class="plantmore-product-thumbnail"><a href="#"><img src="assets/images/other/02.jpg" alt=""></a></td>
-                                            <td class="plantmore-product-name"><a href="#">Vestibulum suscipit</a></td>
-                                            <td class="plantmore-product-price"><span class="amount">$60.50</span></td>
+                                            <td class="plantmore-product-thumbnail"><span class="amount">{{forloop.counter}}</span></td>
+                                            <td class="plantmore-product-name"><a href="">{{cp.product.title}}</a></td>
+                                            <td class="plantmore-product-price"><span class="amount">Rs. {{cp.rate}}</span></td>
                                             <td class="plantmore-product-quantity">
-                                                <input value="1" type="number">
+                                                <l>({{cp.quantity}})</l>
+                                                <a href="{% url 'mainApp:managecart' cp.id %}?action=inc"><i class="ion-plus"></i> </a>
+                                                <a href="{% url 'mainApp:managecart' cp.id %}?action=dcr"><i class="ion-minus"></i></a>
                                             </td>
-                                            <td class="product-subtotal"><span class="amount">$60.50</span></td>
-                                            <td class="plantmore-product-remove"><a href="#"><i class="ion-close"></i></a></td>
+                                            <td class="product-subtotal"><span class="amount">Rs. {{cp.subtotal}}</span></td>
+                                            <td class="plantmore-product-remove">
+                                                <a href="{% url 'mainApp:managecart' cp.id %}?action=rmv"><i class="ion-close"></i></a></td>
                                         </tr>
-                                        <tr>
-                                            <td class="plantmore-product-thumbnail"><a href="#"><img src="assets/images/other/03.jpg" alt=""></a></td>
-                                            <td class="plantmore-product-name"><a href="#">suscip dictum magna</a></td>
-                                            <td class="plantmore-product-price"><span class="amount">$40.50</span></td>
-                                            <td class="plantmore-product-quantity">
-                                                <input value="1" type="number">
-                                            </td>
-                                            <td class="product-subtotal"><span class="amount">$40.50</span></td>
-                                            <td class="plantmore-product-remove"><a href="#"><i class="ion-close"></i></a></td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
@@ -77,15 +75,10 @@
                                     <div class="coupon-all">
 
                                         <div class="coupon2">
-                                            <input class="submit btn" name="update_cart" value="Update cart" type="submit">
-                                            <a href="shop.html" class="btn continue-btn">Continue Shopping</a>
-                                        </div>
-
-                                        <div class="coupon">
-                                            <h3>Coupon</h3>
-                                            <p>Enter your coupon code if you have one.</p>
-                                            <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                            <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
+                                            {% if cart.cartproduct_set.all %}
+                                            <a href="{% url 'mainApp:emptycart' %}" class="btn continue-btn">Empty cart</a>
+                                            {% endif %}
+                                            <a href="{% url 'mainApp:shop' %}" class="btn continue-btn">Continue Shopping</a>
                                         </div>
                                     </div>
                                 </div>
@@ -93,10 +86,10 @@
                                     <div class="cart-page-total">
                                         <h2>Cart totals</h2>
                                         <ul>
-                                            <li>Subtotal <span>$170.00</span></li>
-                                            <li>Total <span>$170.00</span></li>
+                                            <!-- <li>Subtotal <span>$170.00</span></li> -->
+                                            <li>Total <span>Rs. {{cart.total}}</span></li>
                                         </ul>
-                                        <a href="#" class="proceed-checkout-btn">Proceed to checkout</a>
+                                        <a href="{% url 'mainApp:checkout' %}" class="proceed-checkout-btn">Proceed to checkout</a>
                                     </div>
                                 </div>
                             </div>

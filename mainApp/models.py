@@ -15,7 +15,17 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.full_name
+        
+class Slider(models.Model):
+	title = models.CharField(max_length = 400)
+	slug = models.CharField(max_length = 500, unique = True)
+	description = models.TextField()
+	image = models.ImageField(upload_to = 'media')
+	rank = models.IntegerField()
+	status = models.CharField(max_length = 100,choices = (('active','active'),('','inactive')))
 
+	def __str__(self):
+		return self.title
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
@@ -86,3 +96,10 @@ class Order(models.Model):
 
     def __str__(self):
         return "Order: " + str(self.id)
+
+class Review(models.Model):
+	username = models.CharField(max_length = 300)
+	email = models.CharField(max_length = 300)
+	slug = models.CharField(max_length = 400)
+	comment = models.TextField()
+	date = models.DateTimeField(auto_now_add = True)
