@@ -70,7 +70,7 @@
                                                     <li><a href="#">+9887454455</a></li>
                                                     <li><a href="#">Carshop@gmail.com</a></li>
                                                     {% if user.is_authenticated %}
-                                                    <li><a href="#"> {{user.username}}</a></li>
+                                                    <li><a href="{% url 'mainApp:customerprofile' %}"> {{user.username}}</a></li>
                                                     {% else %}
                                                     <li><a href="accounts/login">Login &amp; Register</a></li>   
                                                     {% endif %}

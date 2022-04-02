@@ -64,9 +64,11 @@
                              <div class="shop-products-wrap">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="grid">
-                                        {% for ap in allcategories %}
+                                        
                                         <div class="shop-product-wrap">
+                                            
                                             <div class="row">
+                                                {% for ap in allcategories %}
                                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                                     <!-- single-product-wrap start -->
                                                     <div class="single-product-wrap">
@@ -91,6 +93,7 @@
                                                     </div>
                                                     <!-- single-product-wrap end -->
                                                 </div>
+                                                {% endfor %}
                              
                                    
                          
@@ -101,8 +104,9 @@
                                   
                                                
                                             </div>
+                                            
                                         </div>
-                                        {% endfor %}
+                                        
                                     </div>
                                     <div class="tab-pane" id="list">
                                         {% for ap in allcategories %}
@@ -177,6 +181,38 @@
                             </span>
                         </div> -->
                             <!-- paginatoin-area end -->
+                             <div class="paginatoin-area">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <ul class="pagination-box">
+                                            {% if allcategories.has_previous %}
+                                            <li><a class="Previous" href="?page={{ allcategories.previous_page_number }}"><i class="ion-chevron-left"></i></a>
+                                            </li>
+                                            {% else %}
+                                            <li><a class="Previous"><i class="ion-chevron-left disabled"></i></a>
+                                            </li>
+                                            {% endif %}
+                                            {% for i in allcategories.paginator.page_range %}
+                                            {% if i == allcategories.number %}
+                                            <li class="active"><a>{{i}}</a></li>
+                                            {% else %}
+                                            <li><a href="?page={{i}}">{{i}}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
+                                            
+                                            {% if allcategories.has_next %}
+                                            <li>
+                                                <a class="Next" href="?page={{ allcategories.next_page_number }}"><i class="ion-chevron-right"></i> </a>
+                                            </li>
+                                            {% else %}
+                                            <li>
+                                                <a class="Next"><i class="ion-chevron-right"></i> </a>
+                                            </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- shop-product-wrapper end -->
                     </div>

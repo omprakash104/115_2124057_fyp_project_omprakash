@@ -29,8 +29,8 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col-lg-3 col-md-12">
                                         <div class="d-single-info">
-                                            <p class="user-name">Hello <span>Yourmail@info</span></p>
-                                            <p>(not yourmail@info? <a href="#">Log Out</a>)</p>
+                                            <p class="user-name">Hello <span>{{customer.full_name}}</span></p>
+                                         
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-12">
@@ -77,28 +77,24 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>Order</th>
-                                                            <th>Date</th>
+                                                            <th>SN</th>
+                                                            <th>Order ID</th>
                                                             <th>Status</th>
-                                                            <th>Total</th>
-                                                            <th>Actions</th>
+                                                            <th>Amount</th>
+                                                            <th>Ordered on</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        {% for orde in orders %}
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>May 10, 2018</td>
-                                                            <td>Processing</td>
-                                                            <td>$25.00 for 1 item </td>
-                                                            <td><a href="cart.html" class="view">view</a></td>
+                                                            <td>{{forloop.counter}}</td>
+                                                            <td><a href="{% url 'mainApp:customerorderdetail' orde.pk %}">{{orde.id}}</a></td>
+                                                            <td>{{orde.order_status}}</td>
+                                                            <td>{{orde.total}}</td>
+                                                            <td>{{orde.created_at|timesince}} ago</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>May 10, 2018</td>
-                                                            <td>Processing</td>
-                                                            <td>$17.00 for 1 item </td>
-                                                            <td><a href="cart.html" class="view">view</a></td>
-                                                        </tr>
+                                                        {% endfor %}
+                                                      
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -144,40 +140,11 @@
                                             <div class="login">
                                                 <div class="login-form-container">
                                                     <div class="account-login-form">
-                                                        <form action="#">
-                                                            <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                                            <label>Social title</label>
-                                                            <div class="input-radio">
-                                                                <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mr.</span>
-                                                                <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mrs.</span>
-                                                            </div>
-                                                            <div class="account-input-box">
-                                                                <label>First Name</label>
-                                                                <input type="text" name="first-name">
-                                                                <label>Last Name</label>
-                                                                <input type="text" name="last-name">
-                                                                <label>Email</label>
-                                                                <input type="text" name="email-name">
-                                                                <label>Password</label>
-                                                                <input type="password" name="user-password">
-                                                                <label>Birthdate</label>
-                                                                <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
-                                                            </div>
-                                                            <div class="example">
-                                                                (E.g.: 05/31/1970)
-                                                            </div>
-                                                            <div class="custom-checkbox">
-                                                                <input type="checkbox" value="1" name="optin">
-                                                                <label>Receive offers from our partners</label>
-                                                            </div>
-                                                            <div class="custom-checkbox">
-                                                                <input type="checkbox" value="1" name="newsletter">
-                                                                <label>Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></label>
-                                                            </div>
-                                                            <div class="button-box">
-                                                                <button class="btn default-btn" type="submit">Save</button>
-                                                            </div>
-                                                        </form>
+                                                     <p><span class="font-weight-bold">Name:</span> {{customer.full_name}} </p>
+                                                     <p><span class="font-weight-bold">Name:</span> {{customer.address}} </p>
+                                                     <p><span class="font-weight-bold">Email:</span> {{customer.user.email}} </p>
+                                                     <p><span class="font-weight-bold">Username:</span> {{customer.user.username}} </p>
+                                                     <p><span class="font-weight-bold">Joined on:</span> {{customer.joined_on}} </p>
                                                     </div>
                                                 </div>
                                             </div>
