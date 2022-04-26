@@ -43,4 +43,7 @@ urlpatterns = [
     path("admin-order/<int:pk>/", AdminOrderDetailView.as_view(), name="adminorderdetail"),
     path("admin-all-orders/", AdminOrderListView.as_view(), name="adminorderlist"),
     path("admin-order-<int:pk>-change/", AdminOrderStatusChangeView.as_view(), name="adminorderstatuschange"),
+
+    # For Upload a imgae to detection
+    path('upload', upload, name='upload'),
 ]

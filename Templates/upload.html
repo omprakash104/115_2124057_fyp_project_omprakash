@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<h2>UPLOAD</h2>
+<form method="POST" action="/upload" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg"  name="document">
+    <label for="imageUpload"></label>
+    <button type="submit">Upload Files</button>
+
+</form>
+
+{% if url %}
+    <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+    <img src="{{ url}}" alt="{{ url }}">
+    <p><h1> {{text}} </h1>  </p>
+
+{% endif %}
+
+{% endblock %}

@@ -18,7 +18,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-
+from django.core.files.storage import FileSystemStorage
+from .templatetags.predict import predict_one_image, process_image
 # Create your views here.
 class BaseView(View):
 
@@ -582,3 +583,21 @@ class AdminOrderStatusChangeView(AdminRequiredMixin, View):
         order_obj.order_status = new_status
         order_obj.save()
         return redirect(reverse_lazy("mainApp:adminorderdetail", kwargs={"pk": self.kwargs["pk"]}))
+
+
+# for detection app views
+def upload(request):
+    context = {}
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        context['url'] = fs.url(name)
+        context['filename'] = name
+        pred, probability, text = process_image(name)
+ 
+        context['probability'] = probability
+        context['text'] = text
+
+    return render(request, 'upload.html', context)
+
