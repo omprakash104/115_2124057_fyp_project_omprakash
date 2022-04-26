@@ -28,35 +28,45 @@
                         <div class="login-register-wrapper">
                             <!-- login-register-tab-list start -->
                             {% for message in messages %}
-						<center><font color = "red">{{message}}</font></center>
-						{% endfor %}
-                            <div class="login-register-tab-list nav"> 
-                                <a data-toggle="tab" href="#lg1">
-                                    <h4> register </h4>
-                                </a>
-                                <a href="accounts/login"><i class="fa fa-lock"></i>
-                                    <h4> login </h4>
+                            <center><font color = "red">{{message}}</font></center>
+                            {% endfor %}
+                            <div class="login-register-tab-list nav">
+                                <a class="active" data-toggle="tab" href="#">
+                                    <h4> Register </h4>
                                 </a>
                             </div>
                             <!-- login-register-tab-list end -->
                             <div class="tab-content">
-                                <div id="lg1" class="tab-pane">
+                                <div id="lg1" class="tab-pane active">
                                     <div class="login-form-container">
                                         <div class="login-register-form">
-                                            <form method="POST">
+                                            <form class="login100-form validate-form" method="POST">
                                                 {% csrf_token %}
                                                 <div class="login-input-box">
-                                                <input name = "username" type="text" placeholder="Name"/>
-                                                <input name = "fullname" type="text" placeholder="Full Name"/>
-                                                <input name = "address" type="text" placeholder="Address"/>
-                                                <input name = "email" type="email" placeholder="Email Address"/>
-                                                <input name = "password" type="password" placeholder="Password"/>
-                                                <input name = "cpassword" type="password" placeholder="Confirm Password"/>
+                                                    <input name = "username" type="text" placeholder="Name"/>
+                                                    <input name = "fullname" type="text" placeholder="Full Name"/>
+                                                    <input name = "address" type="text" placeholder="Address"/>
+                                                    <input name = "email" type="email" placeholder="Email Address"/>
+                                                    <input name = "password" type="password" placeholder="Password"/>
+                                                    <input name = "cpassword" type="password" placeholder="Confirm Password"/>
                                                 </div>
                                                 <div class="button-box">
-                                                    <button class="register-btn btn" type="submit"><span>Register</span></button>
+                                                    <div class="button-box">
+                                                        <button class="register-btn btn" type="submit"><span>Register</span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <a href="{% url 'mainApp:customerlogin' %}" class="txt2 hov1">
+                                                        Click here to Login
+                                                    </a>
                                                 </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="lg2" class="tab-pane">
+                                    <div class="login-form-container">
+                                        <div class="login-register-form">
                                         </div>
                                     </div>
                                 </div>

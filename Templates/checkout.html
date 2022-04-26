@@ -81,47 +81,13 @@
                         <div class="col-lg-6 col-md-6">
                             <!-- billing-details-wrap start -->
                             <div class="billing-details-wrap">
-                                <form action="{% url 'mainApp:check' %}" method="POST">
+                                <form action="" method="POST">
                                     {% csrf_token %}
                                     <h3 class="shoping-checkboxt-title">Billing Details</h3>
-                                    <div class="row">
-                                    <!-- {{form.as_p}} -->
-                                        <div class="col-lg-6">
-                                            <p class="single-form-row">
-                                                <label>Full Name <span class="required">*</span></label>
-                                                <input type="text" name="fname">
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p class="single-form-row">
-                                                <label>Address <span class="required">*</span></label>
-                                                <input type="text" name="address">
-                                            </p>
-                                        </div>
-                                        
-                                   
-                                        <div class="col-lg-12">
-                                            <p class="single-form-row">
-                                                <label>Phone</label>
-                                                <input type="text" name="pnumber">
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p class="single-form-row">
-                                                <label>Email address <span class="required">*</span></label>
-                                                <input type="email" name="femail">
-                                            </p>
-                                        </div>
-                                        <div class="order-button-payment">
-                                            <input type="submit" value="Place order" >
-                                            <!-- <button>Place order</button> -->
-                                        </div>
-                                        <div class="col-lg-12">
-                                            
-                                        </div>
-                                     
-                                       
-                                    </div>
+                                    {{form.as_p}}
+                                    <br>
+                                    <button class="btn btn-info">Place order</button>
+             
                                 </form>
                             </div>
                             <!-- billing-details-wrap end -->

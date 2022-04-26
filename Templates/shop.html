@@ -8,11 +8,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="breadcrumb-title">Shop Fullwidth</h2>
+                        <h2 class="breadcrumb-title">Cars Shop</h2>
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-list">
                             <li class="breadcrumb-item"><a href="{% url 'mainApp:home' %}">Home</a></li>
-                            <li class="breadcrumb-item active">Shop Fullwidth</li>
+                            <li class="breadcrumb-item active">List of Cars</li>
                         </ul>
                         <!-- breadcrumb-list end -->
                     </div>
@@ -45,7 +45,7 @@
                                         </div>
                                         <!-- product-view-mode end -->
                                         <!-- product-short start -->
-                                        <div class="product-short">
+                                        <!-- <div class="product-short">
                                             <select class="nice-select" name="sortby">
                                                 <option value="trending">Relevance</option>
                                                 <option value="sales">Name(A - Z)</option>
@@ -53,7 +53,7 @@
                                                 <option value="rating">Price(Low > High)</option>
                                                 <option value="date">Rating(Lowest)</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <!-- product-short end -->
                                     </div>
                                     <!-- shop-top-bar end -->
@@ -78,15 +78,15 @@
                                                             <span class="label">30% Off</span>
                                                             <div class="product-action">
                                                                 <a href="{% url 'mainApp:addtocart' ap.id %}" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                                                <a href="{% url 'mainApp:addtowishlist' ap.id %}" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                                <a href="{% url 'mainApp:addtocompare' ap.id %}" class="quick-view" ><i class="ion-bag"></i></a>
                                                             </div>
                                                         </div>
                                                         <div class="product-content">
                                                             <h3><a href="{% url 'mainApp:productdetail' ap.slug %}">{{ap.title}}</a></h3>
                                                             <div class="price-box">
                                                                 <span class="old-price">Rs. {{ap.marked_price}}</span>
-                                                                <span class="new-price">Rs. {{ap.selling_prince}}</span>
+                                                                <span class="new-price">Rs. {{ap.selling_price}}</span>
                                                             </div>
                                                         </div>
                                                     </ul>
@@ -94,19 +94,8 @@
                                                     <!-- single-product-wrap end -->
                                                 </div>
                                                 {% endfor %}
-                             
-                                   
-                         
-                             
-                                 
-                                                
-                                      
-                                  
-                                               
                                             </div>
-                                            
                                         </div>
-                                        
                                     </div>
                                     <div class="tab-pane" id="list">
                                         {% for ap in allcategories %}
@@ -120,8 +109,8 @@
                                                             <span class="label">30% Off</span>
                                                             <div class="product-action">
                                                                 <a href="{% url 'mainApp:addtocart' ap.id %}" class="add-to-cart"><i class="ion-bag"></i></a>
-                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                                                <a href="{% url 'mainApp:addtowishlist' ap.id %}" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                                <a href="{% url 'mainApp:addtocompare' ap.id %}" class="quick-view" ><i class="ion-bag"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -132,7 +121,7 @@
                                                         <h3><a href="{% url 'mainApp:productdetail' ap.slug %}">{{ap.title}}</a></h3>
                                                         <div class="price-box">
                                                             <span class="old-price">Rs. {{ap.marked_price}}</span>
-                                                            <span class="new-price">Rs. {{ap.selling_prince}}</span>
+                                                            <span class="new-price">Rs. {{ap.selling_price}}</span>
                                                         </div>
                                                         <p>{{ap.description}}</p>
                                                     </div>
@@ -149,38 +138,7 @@
                                 </div>
                             </div>
                             <!-- shop-products-wrap end -->
-
                             <!-- paginatoin-area start -->
-                            <!-- <ul class="pagination">
-                                {% for page in page_obj %}
-                                <li><a href="?page=1"></a></li>
-                                {% endfor %}
-                                
-                            </ul>
-                            <ul class="pagination">
-                                {% for page in page_obj %}
-                                <li><a href="?page=1"></a></li>
-                                {% endfor %}
-                                
-                            </ul>
-						<div class="pagination">
-                            <span class="step-links">
-                                {% if page_obj.has_previous %}
-                                    <a href="?page=1">&laquo; first</a>
-                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                                {% endif %}
-                        
-                                <span class="current">
-                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                                </span>
-                        
-                                {% if page_obj.has_next %}
-                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                                {% endif %}
-                            </span>
-                        </div> -->
-                            <!-- paginatoin-area end -->
                              <div class="paginatoin-area">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12">

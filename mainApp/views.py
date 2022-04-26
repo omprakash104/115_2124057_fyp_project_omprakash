@@ -1,16 +1,23 @@
+from msilib.schema import ListView
+from multiprocessing import context
+from sre_constants import SUCCESS
+from urllib import request
+from wsgiref.util import request_uri
 from django.shortcuts import render, redirect
-from django.views.generic import View, TemplateView, DetailView, FormView, ListView
-from django.contrib import messages
+from django.views.generic import View, TemplateView, FormView, DetailView, ListView, CreateView
 from django.contrib.auth.models import User
+from django.contrib import messages
+from .forms import CheckoutForm
+from .models import *
+from .forms import *
+import requests
 from .models import User
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
-from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
-from .forms import *
-
-from .models import *
+from django.urls import reverse_lazy, reverse
+from django.db.models import Q
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 # Create your views here.
 class BaseView(View):
@@ -28,17 +35,17 @@ class Ecomrequired(object):
 
         return super().dispatch(request, *args, **kwargs)
 
-class HomeView(Ecomrequired,TemplateView,BaseView):
+class HomeView(Ecomrequired,TemplateView):
     template_name = "index.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.views['sliders'] = Slider.objects.all()
-        context['product_list'] = Product.objects.all().order_by("-id")[:8]
+        context['slider'] = HomeSlider.objects.all()[:3]
+        # context['banner'] = HomeBanner.objects.all()[:3]
+        context['featured_product'] = Product.objects.all().order_by("id")[:6]
+        context['product_list'] = Product.objects.all()[:8]
         return context
     
-    
-
 
 class ContactView(Ecomrequired,TemplateView):
     template_name = "contact-us.html"
@@ -60,12 +67,6 @@ class ShopView(Ecomrequired,TemplateView):
         context['allcategories'] = product_list
         return context
 
-    # def get(self, request):
-    #     self.views['allcategories'] = Product.objects.all()
-    #     paginator = Paginator(self.views['allcategories'], 1) # Show 25 contacts per page.
-    #     page_number = request.Get.get('page')
-        
-    #     self.views['page_obj'] = paginator.get_page(page_number)
 
 class ProductDetailView(Ecomrequired,TemplateView):
     template_name = "product-details.html"
@@ -80,7 +81,7 @@ class ProductDetailView(Ecomrequired,TemplateView):
         return context
 
 class AddToCartView(Ecomrequired,TemplateView):
-    template_name = "cart.html"
+    template_name = "addtocart.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,17 +99,17 @@ class AddToCartView(Ecomrequired,TemplateView):
             if this_product_in_cart.exists():
                 cartproduct = this_product_in_cart.last()
                 cartproduct.quantity += 1
-                cartproduct.subtotal += product_obj.selling_prince
+                cartproduct.subtotal += product_obj.selling_price
                 cartproduct.save()
-                cart_obj.total += product_obj.selling_prince
+                cart_obj.total += product_obj.selling_price
                 cart_obj.save()
                 # messages.success(request,'product is already exists!')
             #for new item id added in cart
             else:
                 cartproduct = CartProduct.objects.create(
-                    cart=cart_obj, product=product_obj, rate=product_obj.selling_prince, quantity=1, subtotal=product_obj.selling_prince
+                    cart=cart_obj, product=product_obj, rate=product_obj.selling_price, quantity=1, subtotal=product_obj.selling_price
                 )
-                cart_obj.total += product_obj.selling_prince
+                cart_obj.total += product_obj.selling_price
                 cart_obj.save()
                 # messages.success(request,'New product are added!')
 
@@ -117,14 +118,11 @@ class AddToCartView(Ecomrequired,TemplateView):
             cart_obj = Cart.objects.create(total=0)
             self.request.session['cart_id'] = cart_obj.id
             cartproduct = CartProduct.objects.create(
-                    cart=cart_obj, product=product_obj, rate=product_obj.selling_prince, quantity=1, subtotal=product_obj.selling_prince
+                    cart=cart_obj, product=product_obj, rate=product_obj.selling_price, quantity=1, subtotal=product_obj.selling_price
                 )
-            cart_obj.total += product_obj.selling_prince
+            cart_obj.total += product_obj.selling_price
             cart_obj.save()
-            
 
-
-        
         return context
 
 class EmptyCartView(Ecomrequired,View):
@@ -169,8 +167,6 @@ class ManageCartView(Ecomrequired, View):
 
         return redirect("mainApp:mycart")
 
-
-
 class MyCartView(Ecomrequired, TemplateView):
     template_name = "cart.html"
 
@@ -184,17 +180,164 @@ class MyCartView(Ecomrequired, TemplateView):
         context['cart'] = cart
         return context
 
-class CheckoutView(Ecomrequired, TemplateView):
+
+class AddToWishlistView(Ecomrequired, TemplateView):
+    template_name = "addtowishlist.html"
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #for get product id from requested url
+        product_id = self.kwargs['pro_id']
+        #for get product
+        product_obj = Product.objects.get(id=product_id)
+        #for cart ma aagadi xavane check garne
+        wishlist_id = self.request.session.get("wishlist_id",None)
+        if wishlist_id:
+            wishlist_obj = Wishlist.objects.get(id=wishlist_id)
+            this_product_in_wishlist = wishlist_obj.wishlistproduct_set.filter(
+                product=product_obj)
+            
+            #for items already exists in cart
+            #for items already exists in cart
+            if this_product_in_wishlist.exists():
+                wishlistproduct = this_product_in_wishlist.last()
+                wishlistproduct.quantity += 1
+                wishlistproduct.subtotal += product_obj.selling_price
+                wishlistproduct.save()
+                wishlist_obj.total += product_obj.selling_price
+                wishlist_obj.save()
+                
+            #for new item id added in cart
+            else:
+                wishlistproduct = WishlistProduct.objects.create(
+                    wishlist=wishlist_obj, product=product_obj, rate=product_obj.selling_price, quantity=1, subtotal=product_obj.selling_price
+                )
+                wishlist_obj.total += product_obj.selling_price
+                wishlist_obj.save()
+
+        else:
+            wishlist_obj = Wishlist.objects.create(total=0)
+            self.request.session['wishlist_id'] = wishlist_obj.id
+            wishlistproduct = WishlistProduct.objects.create(
+                    wishlist=wishlist_obj, product=product_obj, rate=product_obj.selling_price, quantity=1, subtotal=product_obj.selling_price
+                )
+            wishlist_obj.total += product_obj.selling_price
+            wishlist_obj.save()
+
+        return context
+
+class ManageWishlistView(Ecomrequired, View):
+    def get(self, request, *args, **kwargs):
+        cp_id = self.kwargs["cp_id"]
+        action = request.GET.get("action")
+        cp_obj = WishlistProduct.objects.get(id=cp_id)
+        wishlist_obj = cp_obj.wishlist
+        
+        if action == "rmv":
+            wishlist_obj.total -= cp_obj.subtotal
+            wishlist_obj.save()
+            cp_obj.delete()
+            
+        else:
+            pass
+
+        return redirect("mainApp:mywishlist")
+
+class MyWishListView(TemplateView):
+    template_name = "wishlist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        wishlist_id = self.request.session.get("wishlist_id", None)
+        if wishlist_id:
+            wishlist = Wishlist.objects.get(id=wishlist_id)
+        else:
+            wishlist = None
+        context['wishlist'] = wishlist
+        return context
+
+class AddToCompareView(Ecomrequired, TemplateView):
+    template_name = "addtocompare.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #for get product id from requested url
+        product_id = self.kwargs['pro_id']
+        #for get product
+        product_obj = Product.objects.get(id=product_id)
+        #for cart ma aagadi xavane check garne
+        compare_id = self.request.session.get("compare_id",None)
+        if compare_id:
+            compare_obj = Compare.objects.get(id=compare_id)
+            this_product_in_compare = compare_obj.compareproduct_set.filter(
+                product=product_obj)
+            
+            #for items already exists in cart
+            if this_product_in_compare.exists():
+                compareproduct = this_product_in_compare.last()
+                compareproduct.save()
+                
+            #for new item id added in cart
+            else:
+                compareproduct = CompareProduct.objects.create(
+                    compare=compare_obj, product=product_obj, rate=product_obj.selling_price, quantity=1, subtotal=product_obj.selling_price
+                )
+                compare_obj.total += product_obj.selling_price
+                compare_obj.save()
+
+
+        else:
+            compare_obj = Compare.objects.create(total=0)
+            self.request.session['compare_id'] = compare_obj.id
+            compareproduct = CompareProduct.objects.create(
+                    compare=compare_obj, product=product_obj, rate=product_obj.selling_price, quantity=1, subtotal=product_obj.selling_price
+                )
+            compare_obj.total += product_obj.selling_price
+            compare_obj.save()
+
+        return context
+class ManageCompareView(Ecomrequired, View):
+    def get(self, request, *args, **kwargs):
+        cp_id = self.kwargs["cp_id"]
+        action = request.GET.get("action")
+        cp_obj = CompareProduct.objects.get(id=cp_id)
+        compare_obj = cp_obj.compare
+        
+        if action == "rmv":
+            compare_obj.total -= cp_obj.subtotal
+            compare_obj.save()
+            cp_obj.delete()
+            
+        else:
+            pass
+
+        return redirect("mainApp:mycompare")
+class MyCompareView(Ecomrequired, TemplateView):
+    template_name = "compare.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        compare_id = self.request.session.get("compare_id", None)
+        if compare_id:
+            compare = Compare.objects.get(id=compare_id)
+        else:
+            compare = None
+        context['compare'] = compare
+        return context
+
+class CheckoutView(Ecomrequired, CreateView):
     template_name = "checkout.html"
-    # from_class = CheckoutForm
-    sucess_url = reverse_lazy("mainApp:home")
+    form_class = CheckoutForm
+    success_url = reverse_lazy("mainApp:home")
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user.customer:
             pass
         else:
-            return redirect("/signup/")
+            return redirect("/login/?next=/checkout/")
         return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cart_id = self.request.session.get("cart_id", None)
@@ -205,114 +348,135 @@ class CheckoutView(Ecomrequired, TemplateView):
         context['cart'] = cart_obj
         return context
 
-    def get_context(request):
-        if request.method == 'POST':
-            order = Order()
-            full_name = request.POST['fname']
-            address = request.POST['address']
-            phone = request.POST['pnumber']
-            memail = request.POST['femail']
-
-            order.ordered_by = full_name
-            order.email = memail
-            order.shipping_address = address
-            order.mobile = phone
-            cart_id = request.session.get("cart_id")
+    def form_valid(self, form):
+        cart_id = self.request.session.get("cart_id")
         if cart_id:
             cart_obj = Cart.objects.get(id=cart_id)
-            order.cart = cart_obj
-            order.subtotal = cart_obj.total
-            order.discount = 0
-            order.total = cart_obj.total
-            order.order_status = "Order Received"
-            del request.session['cart_id']  
-            order.save()
-        return render(request, 'checkout.html')
+            form.instance.cart = cart_obj
+            form.instance.subtotal = cart_obj.total
+            form.instance.discount = 0
+            form.instance.total = cart_obj.total
+            form.instance.order_status = "Order Received"
+            del self.request.session['cart_id']
+            pm = form.cleaned_data.get("payment_method")
+            order = form.save()
+            if pm == "Khalti":
+                return redirect(reverse("mainApp:khaltirequest") + "?o_id=" + str(order.id))
+        else:
+            return redirect("mainApp:home")
+        return super().form_valid(form)
 
 
+class KhaltiRequestView(View):
+    def get(self, request, *args, **kwargs):
+        o_id = request.GET.get("o_id")
+        order = Order.objects.get(id=o_id)
+        context = {
+            "order": order
+        }
+        return render(request, "khaltirequest.html", context)
+
+class KhaltiVerifyView(View):
+    def get(self, request, *args, **kwargs):
+        token = request.GET.get("token")
+        amount = request.GET.get("amount")
+        o_id = request.GET.get("order_id")
+        url = "https://khalti.com/api/v2/payment/verify/"
+        payload = {
+            "token": token,
+            "amount": amount
+        }
+        headers = {
+            "Authorization": "test_secret_key_379b4dba87c4444bb22413f299a1878a"
+        }
+        order_obj = Order.objects.get(id=o_id)
+        response = requests.post(url, payload, headers=headers)
+        resp_dict = response.json()
+        if resp_dict.get("idx"):
+            success = True
+            order_obj.patment_completed = True
+            order_obj.save()
+        else:
+            success = False
+        data = {
+            "success": success
+        }
+        return JsonResponse(data)
 
 class BlogView(TemplateView):
     template_name = "blog.html"
 
-@login_required
-def review(request):	
-	username = request.user.username
-	email = request.user.email
-	slug = request.POST.get('slug')
-	comment = request.POST.get('comment')
-	data = Review.objects.create(
-		username = username,
-		email = email,
-		slug = slug,
-		comment = comment
-		)
-	data.save()
-	return render(request,'/home')
-	# return redirect(f"/product/{slug}")
+# @login_required
+# def review(request):	
+# 	username = request.user.username
+# 	email = request.user.email
+# 	slug = request.POST.get('slug')
+# 	comment = request.POST.get('comment')
+# 	data = Review.objects.create(
+# 		username = username,
+# 		email = email,
+# 		slug = slug,
+# 		comment = comment
+# 		)
+# 	data.save()
+# 	return render(request,'/home')
+# 	# return redirect(f"/product/{slug}")
 
-# def signup(request):
-# 	if request.method == 'POST':
-# 		username = request.POST['username']
-# 		email = request.POST['email']
-# 		password = request.POST['password']
-# 		cpassword = request.POST['cpassword']
-
-# 		if password == cpassword:
-# 			if User.objects.filter(username = username).exists():
-# 				messages.error(request,'The username is already taken')
-# 				return redirect('/signup')
-# 			elif User.objects.filter(email = email).exists():
-# 				messages.error(request,'The email is already taken')
-# 				return redirect('/signup')
-# 			else:
-# 				user = User.objects.create_user(
-# 					username = username,
-# 					email = email,
-# 					password = password
-# 					)
-# 				user.save()
-#                 customer = Customer()
-
-
-
-# 				messages.success(request,'You are registered!')
-# 				return redirect('/signup')
-
-# 	return render(request,'signup.html')
 def signup(request):
-        if request.method == 'POST':
-            username = request.POST['username']
-            full_name = request.POST['fullname']
-            address = request.POST['address']
-            email = request.POST['email']
-            password = request.POST['password']
-            cpassword = request.POST['cpassword']
+    if request.method == 'POST':
+        username = request.POST['username']
+        full_name = request.POST['fullname']
+        address = request.POST['address']
+        email = request.POST['email']
+        password = request.POST['password']
+        cpassword = request.POST['cpassword']
             
-            if password == cpassword:
-                if User.objects.filter(username = username).exists():
-                    messages.error(request,'The username is already taken')
-                    return redirect("/signup")
-                elif User.objects.filter(email = email).exists():
-                    messages.error(request,'The email is already taken')
-                    return redirect('/signup')
-                else:
-                    user = User.objects.create_user(
-					username = username,
-					email = email,
-					password = password
-					)
-                    user.save()
+        if password == cpassword:
+            if User.objects.filter(username = username).exists():
+                messages.error(request,'The username is already taken')
+                return redirect("mainApp:customerregistration")
+            elif User.objects.filter(email = email).exists():
+                messages.error(request,'The email is already taken')
+                return redirect("mainApp:customerregistration")
+            else:
+                user = User.objects.create_user(
+				username = username,
+				email = email,
+				password = password
+				)
+                user.save()
                 
-                    customer = Customer()
-                    customer.user = User.objects.get(username=user)
-                    customer.full_name = full_name
-                    customer.address = address
-                    customer.save()
-                    messages.success(request,'You are registered!')
-                    return redirect("/signup")
-        return render(request,"signup.html")
+                customer = Customer()
+                customer.user = User.objects.get(username=user)
+                customer.full_name = full_name
+                customer.address = address
+                customer.save()
+                messages.success(request,'You are registered!')
+                return redirect("mainApp:customerlogin")
+    return render(request,"signup.html")
 
-				    
+def view_authenticate_user(request):
+    if request.method == "GET": 
+        return render(request, 'login.html') 
+    else:
+        print(request.POST)
+        user = authenticate(username=request.POST['username'], password=request.POST['password']) 
+        print(user)
+        if user is not None and Customer.objects.filter(user=user).exists():  
+            login(request, user)
+            messages.warning(request,'Login sucessfully')
+            # if "next" in request.GET:
+            #     next_url = request.GET.get("next")
+            #     return next_url
+            # else:
+            #     return redirect("mainApp:customerlogin")
+
+            return redirect("mainApp:home")   
+            
+        else: 
+            messages.warning(request,'Please chek your username and password!!')
+            return redirect("mainApp:customerlogin") 
+
 class Search(BaseView):
 	def get(self,request):
 		query = request.GET.get('query',None)

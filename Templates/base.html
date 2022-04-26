@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Carsdetection - Cars Shop eCommerce Template </title>
+    <title>Cars Shop (E-Commerce) & Vehicle Detection </title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,6 +35,7 @@
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
+    
 
 </head>
 
@@ -51,7 +52,7 @@
                             <div class="col-12">
                                 <div class="header-top-inner">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-3">
+                                        <div class="col-lg-4 col-md-6">
                                             <div class="social-top">
                                                 <ul>
                                                     <li><a href="#"><i class="ion-social-facebook"></i></a></li>
@@ -66,13 +67,13 @@
                                             <div class="top-info-wrap text-right">
                                                
                                                 <ul class="top-info">
-                                                    <li>Sun - Fri : 9am to 5pm </li>
-                                                    <li><a href="#">+9887454455</a></li>
-                                                    <li><a href="#">Carshop@gmail.com</a></li>
+                                                    <!-- <li>Sun - Fri : 9am to 5pm </li>
+                                                    <li><a href="#">+9887454455</a></li> -->
+                                                    <!-- <li><a href="#">Carshop@gmail.com</a></li> -->
                                                     {% if user.is_authenticated %}
                                                     <li><a href="{% url 'mainApp:customerprofile' %}"> {{user.username}}</a></li>
                                                     {% else %}
-                                                    <li><a href="accounts/login">Login &amp; Register</a></li>   
+                                                    <li><a href="{% url 'mainApp:customerlogin' %}">Login &amp; Register</a></li>   
                                                     {% endif %}
                                                     <li><a href="/accounts/logout">Logout</a></li>
                                                 </ul>
@@ -94,7 +95,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-2 col-md-4 col-5">
                                 <div class="logo-area">
-                                    <a href="{% url 'mainApp:shop' %}"><img src="{% static 'slider/logo.jpg' %}" alt="Logo"></a>
+                                    <a href="/"><img src="{% static 'slider/Logo.JPG' %}" alt="Logo"></a>
                                 </div>
                             </div>
                             <div class="col-lg-8 d-none d-lg-block">
@@ -102,7 +103,7 @@
                                 <div class="main-menu-area text-center">
                                     <!--  Start Mainmenu Nav-->
                                     <nav class="main-navigation">
-                                        <ul>
+                                       <ul>
                                             <li class="active"><a href="/">Home</a>
                                                 <!-- <ul class="sub-menu">
                                                     <li><a href="index.html">Home Page One</a></li>
@@ -132,15 +133,26 @@
                                                     </li> -->
                                                 <!-- </ul>
                                             </li> --> 
-                                            <li><a href="{% url 'mainApp:shop' %}">shop</a>
+                                            <li><a href="{% url 'mainApp:shop' %}">Cars Shop</a>
                                                 <!-- <ul class="sub-menu">
                                                     <li><a href="shop.html">Shop Left Sidebar</a></li>
                                                     <li><a href="shop-right.html">Shop Right Sidebar</a></li>
                                                     <li><a href="shop-fullwidth.html">Shop Full Width</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li><a href="{% url 'mainApp:blog' %}">Blog</a>
-                                            </li>
+                                            <!-- <li><a href="#">Account</a>
+                                                <ul class="sub-menu">
+                                                    {% if user.is_authenticated %}
+                                                    <li><a href="{% url 'mainApp:customerprofile' %}"> {{user.username}}</a></li>
+                                                    {% else %}
+                                                    <li><a href="{% url 'mainApp:customerlogin' %}">Login &amp; Register</a></li>   
+                                                    {% endif %}
+                                                    <li><a href="/accounts/logout">Logout</a></li>
+                                                    <li><a href="shop.html"></a></li>
+                                                    <li><a href="shop-right.html">Shop Right Sidebar</a></li>
+                                                    <li><a href="shop-fullwidth.html">Shop Full Width</a></li> -->
+                                                <!-- </ul> -->
+                                            <!-- </li> -->
                                             <li><a href="{% url 'mainApp:about' %}">About</a></li>
                                             <li><a href="{% url 'mainApp:contact' %}">Contact</a></li>
                                         </ul>
@@ -149,7 +161,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 col-md-8 col-7">
+                            <div class="col-lg-2 col-md-6 col-7">
                                 <div class="right-blok-box d-flex">
                                     <div class="search-wrap">
                                         <form action="{% url 'mainApp:search' %}" method = "GET">
@@ -161,51 +173,13 @@
                                     </div>
 
                                     <div class="user-wrap">
-                                        <a href="wishlist.html"><i class="ion-android-favorite-outline"></i></a>
+                                        <a href="{% url 'mainApp:mywishlist' %}"><i class="ion-android-favorite-outline"></i></a>
                                     </div>
-
-
+                                    <div class="user-wrap">
+                                        <a href="{% url 'mainApp:mycompare' %}"><i class="ion-android-favorite-outline"></i></a>
+                                    </div>
                                     <div class="shopping-cart-wrap">
-                                        <a href="#"><i class="ion-ios-cart-outline"></i> <span id="cart-total">2</span></a>
-                                        <ul class="mini-cart">
-                                            <li class="cart-item">
-                                                <div class="cart-image">
-                                                    <a href="product-details.html"><img alt="" src="assets/images/product/product-01.jpg"></a>
-                                                </div>
-                                                <div class="cart-title">
-                                                    <a href="product-details.html">
-                                                        <h4>Product Name 01</h4>
-                                                    </a>
-                                                    <span class="quantity">1 ×</span>
-                                                    <div class="price-box"><span class="new-price">$130.00</span></div>
-                                                    <a class="remove_from_cart" href="#"><i class="icon-trash icons"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="cart-item">
-                                                <div class="cart-image">
-                                                    <a href="product-details.html"><img alt="" src="assets/images/product/product-02.jpg"></a>
-                                                </div>
-                                                <div class="cart-title">
-                                                    <a href="product-details.html">
-                                                        <h4>Product Name 03</h4>
-                                                    </a>
-                                                    <span class="quantity">1 ×</span>
-                                                    <div class="price-box"><span class="new-price">$130.00</span></div>
-                                                    <a class="remove_from_cart" href="#"><i class="icon-trash icons"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="subtotal-titles">
-                                                <div class="subtotal-titles">
-                                                    <h3>Sub-Total :</h3><span>$ 230.99</span>
-                                                </div>
-                                            </li>
-                                            <li class="mini-cart-btns">
-                                                <div class="cart-btns">
-                                                    <a href="{% url 'mainApp:mycart' %}">View cart</a>
-                                                    <a href="{% url 'mainApp:checkout' %}">Checkout</a>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                        <a href="{% url 'mainApp:mycart' %}"><i class="ion-ios-cart-outline"></i></a>
                                     </div>
 
                                     <div class="mobile-menu-btn d-block d-lg-none">
@@ -282,7 +256,7 @@
                                                     <ul class="dropdown">
                                                         <li><a href="error404.html">Error 404</a></li>
                                                         <li><a href="cart.html">Cart Page</a></li>
-                                                        <li><a href="wishlist.html">Wish List Page</a></li>
+                                                        <li><a href="{% url 'mainApp:mywishlist' %}">Wish List Page</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -312,7 +286,7 @@
 
 
                             <!-- offcanvas widget area start -->
-                            <div class="offcanvas-widget-area">
+                            <!-- <div class="offcanvas-widget-area">
                                 <div class="off-canvas-contact-widget">
                                     <ul>
                                         <li>
@@ -325,7 +299,7 @@
                                             <a href="#">info@yourdomain.com</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <div class="off-canvas-social-widget">
                                     <a href="#"><i class="ion-social-facebook"></i></a>
                                     <a href="#"><i class="ion-social-twitter"></i></a>
@@ -350,39 +324,39 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-4 col-md-6">
-                                <div class="widget-footer mt-20">
+                                <div class="widget-footer mt-30">
                                     <div class="footer-logo">
-                                        <a href="{% url 'mainApp:home' %}"><img src="{% static 'slider/logo.jpg' %}" alt=""></a>
+                                        <a href="{% url 'mainApp:home' %}"><img src="{% static 'slider/Logo.JPG' %}" alt=""></a>
                                     </div>
-                                    <p>long established fact that a reader will be distracted by the readable content by the readable content established fact that</p>
-                                    <div class="newsletter-footer">
+                                    <p>This system is like a E-commerce or Cars shop where customer can buy cars online. Different types of cars model and company are available here. </p>
+                                    <!-- <div class="newsletter-footer">
                                         <input type="text" placeholder="You Email">
                                         <div class="subscribe-button">
                                             <button class="subscribe-btn">Subscribe</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-6">
+                            <div class="col-lg-4 col-md-6">
                                 <div class="widget-footer mt-30">
                                     <h6 class="title-widget">QUICK LINK</h6>
                                     <ul class="footer-list">
                                         <li><a href="{% url 'mainApp:home' %}">Home</a></li>
                                         <li><a href="{% url 'mainApp:about' %}">About Us</a></li>
-                                        <li><a href="{% url 'mainApp:contact' %}">Quick Contact</a></li>
-                                        <li><a href="{% url 'mainApp:blog' %}">Blog Pages</a></li>
-                                        <li><a href="#">Concord History</a></li>
-                                        <li><a href="#">Client Feed</a></li>
+                                        <li><a href="{% url 'mainApp:contact' %}">Contact</a></li>
+                                        <!-- <li><a href="{% url 'mainApp:blog' %}">Blog Pages</a></li> -->
+                                        <!-- <li><a href="#">Concord History</a></li> -->
+                                        <!-- <li><a href="#">Client Feed</a></li> -->
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6">
+                            <div class="col-lg-4 col-md-6">
                                 <div class="widget-footer mt-30">
                                     <h6 class="title-widget">QUICK CONTACT</h6>
                                     <ul class="footer-contact">
                                         <li>
                                             <label>Phone</label>
-                                            <a href="#">+88013678456313</a>
+                                            <a href="#">+977-98712135521</a>
                                         </li>
                                         <li>
                                             <label>Email</label>
@@ -391,26 +365,6 @@
                                         <li>
                                             <label>Address</label>
                                             Koteshwor, Kathmandu City <br> Nepal
-                                </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="widget-footer mt-30">
-                                    <h6 class="title-widget">LATEST BLOG</h6>
-                                    <ul class="footer-blog">
-                                        <li>
-                                            <div class="widget-blog-wrap">
-                                                <div class="widget-blog-image">
-                                                    <a href="#"><img src="assets/images/blog/small-blog.jpg" alt=""></a>
-                                                </div>
-                                                <div class="widget-blog-content">
-                                                    <h6><a href="#">Some patience for the modern market</a></h6>
-                                                    <div class="widget-blog-meta">
-                                                        <span>21 Aug 2019</span> <span>By <a href="#">Admin</a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </li>
                                     </ul>
                                 </div>

@@ -57,7 +57,7 @@ html, body {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: LightGray;
   line-height: 23px;
   font-size: 14px;
   font-style: normal;
@@ -14648,5 +14648,4 @@ justify-content: space-between;*/
   color: #008000;
   font-style: italic;
 }
-
 /*# sourceMappingURL=style.css.map */
